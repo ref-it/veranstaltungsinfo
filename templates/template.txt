@@ -1,0 +1,11 @@
+{% for day in events %}*{{ day[0]['date_de'] }} | {{ day[0]['date_en'] }}*
+        
+{% for event in day %}
+*{{ event['title'] }}*
+{{ event['time'] }} | {{ event['location'] }}
+{% if 'description' in event %}
+{{ event['description'] }}
+{% endif %}
+
+{% endfor %}
+{% endfor %}

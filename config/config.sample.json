@@ -1,0 +1,13 @@
+{
+    "sender": {
+        "server": "",
+        "port": 587,
+        "address": "",
+        "password": ""
+    },
+    "recipient": "",
+    "subject_de": "Veranstaltungen nächste Woche",
+    "subject_en": "Events next week",
+    "start": 3,
+    "end": 10
+}
