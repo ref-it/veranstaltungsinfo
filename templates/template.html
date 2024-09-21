@@ -135,8 +135,8 @@
     <body>
         <div id="header">
             <div class="container">
-                <span class="de">{{ subject_de }}</span>
-                <span class="en">{{ subject_en }}</span>
+                <span class="de">{{ subject_de | e }}</span>
+                <span class="en">{{ subject_en | e }}</span>
             </div>
         </div>
 
@@ -144,29 +144,29 @@
             {% for day in events %}
                 <div class="day">
                     <div class="container">
-                        <span class="de">{{ day[0]['date_de'] }}</span>
-                        <span class="en">{{ day[0]['date_en'] }}</span>
+                        <span class="de">{{ day[0]['date_de'] | e }}</span>
+                        <span class="en">{{ day[0]['date_en'] | e }}</span>
                     </div>
                 </div>
                 {% for event in day %}
                     <div class="event">
                         <div class="container">
-                            <div class="title">{{ event['title'] }}</div>
+                            <div class="title">{{ event['title'] | e }}</div>
                             <div class="details">
                                 <div class="location">
                                     <div>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z" /></svg>
                                     </div>
-                                    <div>{{ event['time'] }}</div>
+                                    <div>{{ event['time'] | e }}</div>
                                 </div>
                                 <div class="location">
                                     <div>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z" /></svg>
                                     </div>
-                                    <div>{{ event['location'] }}</div>
+                                    <div>{{ event['location'] | e }}</div>
                                 </div>
                             </div>
-                            <div class="description">{{ event['description'] | replace("\n", "<br/>") }}</div>
+                            <div class="description">{{ event['description'] | e | replace("\n", "<br/>") }}</div>
                         </div>
                     </div>
                 {% endfor %}
