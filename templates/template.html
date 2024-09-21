@@ -17,6 +17,8 @@
                 display: flex;
                 flex-direction: column;
                 min-height: 100vh;
+                background-color: #ffffff;
+                color: #27272a;
             }
 
             .container {
@@ -43,6 +45,7 @@
                 background-color: #27272a;
                 text-align: center;
                 box-shadow: 0 0 4px #000;
+                border-bottom: 1px solid #18181b;
                 z-index: 10;
             }
 
@@ -78,6 +81,10 @@
             .day > div .de {
                 font-weight: bold;
                 margin-right: auto;
+            }
+
+            .day > div .en {
+                text-align: right;
             }
 
             .event {
@@ -129,6 +136,47 @@
 
             #footer a {
                 color: #ffffff;
+            }
+
+            @media (prefers-color-scheme: dark) {
+                body {
+                    background-color: #27272a;
+                    color: #ffffff;
+                }
+
+                #header {
+                    background-color: #18181b;
+                    border-bottom: 1px solid #27272a;
+                }
+
+                .day {
+                    background-color: #18181b;
+                    border-bottom: 1px solid #3f3f46;
+                    color: #ffffff;
+                }
+
+                .event {
+                    border-bottom: 1px solid #3f3f46;
+                }
+
+                .event svg path {
+                    fill: #ffffff;
+                }
+
+                #info-calendar {
+                    background-color: #18181b;
+                    color: #ffffff;
+                    border-top: 1px solid #3f3f46;
+                }
+
+                #info-calendar a {
+                    color: #ffffff;
+                }
+
+                #footer {
+                    background-color: #18181b;
+                    border-top: 1px solid #3f3f46;
+                }
             }
         </style>
     </head>

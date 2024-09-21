@@ -1,5 +1,4 @@
-{% for day in events %}*{{ day[0]['date_de'] | e }} | {{ day[0]['date_en'] | e }}*
-        
+{% for day in events %}===== {{ day[0]['date_de'] | e }} | {{ day[0]['date_en'] | e }} =====
 {% for event in day %}
 *{{ event['title'] | e }}*
 {{ event['time'] | e }} | {{ event['location'] | e }}
@@ -7,8 +6,7 @@
 {{ event['description'] | e }}
 {% endif %}
 
-{% endfor %}
-{% endfor %}
+{% endfor %}{% endfor %}
 
 ......................................
 
@@ -16,6 +14,7 @@ Alle Veranstalungen findest du auch in unserem Veranstaltungskalender <https://s
 
 You can also find all events in our event calendar <https://stura.eu/kalender>.
 
---
+......................................
+
 Studierendenrat Ilmenau
 www.stura-ilmenau.de
