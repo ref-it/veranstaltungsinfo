@@ -5,6 +5,7 @@ from operator import itemgetter
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.utils import formataddr, formatdate, make_msgid
+from htmlmin.minify import html_minify
 
 # Read configuration files
 with open('config/config.json', 'r') as file:
@@ -86,7 +87,10 @@ template_txt = jinja2.Template(pathlib.Path("templates/template.txt").read_text(
 template_html = jinja2.Template(pathlib.Path("templates/template.html").read_text())
 
 message.attach(MIMEText(template_txt.render(events=all_events_by_day, subject_de=config['subject_de'], subject_en=config['subject_en']), 'plain'))
-message.attach(MIMEText(template_html.render(events=all_events_by_day, subject_de=config['subject_de'], subject_en=config['subject_en']), 'html'))
+
+html_rendered = template_html.render(events=all_events_by_day, subject_de=config['subject_de'], subject_en=config['subject_en'])
+html_minified = html_minify(html_rendered)
+message.attach(MIMEText(html_minified, 'html'))
 
 # Send the email
 smtp = smtplib.SMTP(config['sender']['server'], config['sender']['port'])
