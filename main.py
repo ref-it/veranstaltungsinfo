@@ -6,20 +6,31 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.utils import formataddr, formatdate, make_msgid
 
+# Read configuration files
 with open('config/config.json', 'r') as file:
     config = json.load(file)
 
 with open('config/calendars.json', 'r') as file:
     calendars = json.load(file)
 
+# Get date of next monday
 today = datetime.combine(datetime.today(), time(0,0))
+days_ahead = config['start_day'] - today.weekday()
+
+if days_ahead <= 0:
+    days_ahead += 7
+
+next_monday = today + timedelta(days=days_ahead)
+
+# Set empty lists for events
 all_events = []
 all_events_sorted = []
 
+# Iterate over all calendars and find events
 for calendar_url in calendars:
     client = caldav.DAVClient(calendar_url)
     calendar_data = client.principal().calendar()
-    events = calendar_data.date_search(today + timedelta(days=config['start']), today + timedelta(days=config['end']))
+    events = calendar_data.date_search(next_monday, next_monday + timedelta(days=10)) # timedelta komisch, aber klappt scheinbar nur so
 
     for event in events:
         event.load()
@@ -40,8 +51,10 @@ for calendar_url in calendars:
 
             all_events.append(event_data)
         
+# Sort events by date
 all_events_sorted = sorted(all_events, key=itemgetter('date'))
 
+# Group events by day
 events_of_day = []
 all_events_by_day = []
 last_date = today + timedelta(days=config['start'])
@@ -59,6 +72,7 @@ for event in all_events_sorted:
 
     last_date = current_date
 
+# Compose the email headers and contents
 message = MIMEMultipart('alternative')
 message['Subject'] = config['subject_de'] + " | " + config['subject_en']
 message['From'] = formataddr(('Veranstaltungsinfo | Studierendenrat Ilmenau', config['sender']['address']))
@@ -74,6 +88,7 @@ template_html = jinja2.Template(pathlib.Path("templates/template.html").read_tex
 message.attach(MIMEText(template_txt.render(events=all_events_by_day, subject_de=config['subject_de'], subject_en=config['subject_en']), 'plain'))
 message.attach(MIMEText(template_html.render(events=all_events_by_day, subject_de=config['subject_de'], subject_en=config['subject_en']), 'html'))
 
+# Send the email
 smtp = smtplib.SMTP(config['sender']['server'], config['sender']['port'])
 smtp.starttls()
 smtp.login(config['sender']['address'], config['sender']['password'])

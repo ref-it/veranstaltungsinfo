@@ -8,6 +8,5 @@
     "recipient": "",
     "subject_de": "Veranstaltungen nächste Woche",
     "subject_en": "Events next week",
-    "start": 3,
-    "end": 10
+    "start_day": 0
 }
