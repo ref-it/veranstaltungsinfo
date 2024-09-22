@@ -57,7 +57,7 @@ all_events_sorted = sorted(all_events, key=itemgetter('date'))
 # Group events by day
 events_of_day = []
 all_events_by_day = []
-last_date = today + timedelta(days=config['start'])
+last_date = today + next_monday
 
 for event in all_events_sorted:
     current_date = event['date'].strftime("%Y-%m-%d")
