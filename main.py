@@ -31,7 +31,7 @@ all_events_sorted = []
 for calendar_url in calendars:
     client = caldav.DAVClient(calendar_url)
     calendar_data = client.principal().calendar()
-    events = calendar_data.date_search(next_monday, next_monday + timedelta(days=10)) # timedelta komisch, aber klappt scheinbar nur so
+    events = calendar_data.date_search(next_monday, next_monday + timedelta(days=8)) # timedelta komisch, aber klappt scheinbar nur so
 
     for event in events:
         event.load()
